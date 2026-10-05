@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Simply Chords "Triad Play" mark: three notes of a chord forming a play button, over six strings. -->
+  <rect width="128" height="128" rx="30" fill="#15121b"/>
+  <g stroke="#ffffff" stroke-opacity="0.13" stroke-linecap="round">
+    <line x1="14" x2="114" y1="29" y2="29" stroke-width="1.2"/>
+    <line x1="14" x2="114" y1="43" y2="43" stroke-width="1.5"/>
+    <line x1="14" x2="114" y1="57" y2="57" stroke-width="1.8"/>
+    <line x1="14" x2="114" y1="71" y2="71" stroke-width="2.1"/>
+    <line x1="14" x2="114" y1="85" y2="85" stroke-width="2.5"/>
+    <line x1="14" x2="114" y1="99" y2="99" stroke-width="2.9"/>
+  </g>
+  <path d="M45 34 L45 94 L99 64 Z" fill="#ffd166" fill-opacity="0.16" stroke="#ffd166" stroke-opacity="0.55" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="45" cy="34" r="13" fill="#ffd166"/>
+  <circle cx="45" cy="94" r="13" fill="#ffd166"/>
+  <circle cx="99" cy="64" r="14.5" fill="#ffd166"/>
+</svg>

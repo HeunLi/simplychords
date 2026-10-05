@@ -1,0 +1,39 @@
+/* Shared styles for the extension's own pages (welcome, privacy). System fonts only, so they work offline. */
+:root {
+  --bg: #f5f3f7;
+  --paper: #ffffff;
+  --ink: #17141c;
+  --muted: #5f5869;
+  --line: #e1dde7;
+  --accent-text: #8a6300;
+  --tile: #15121b;
+  --gold: #ffd166;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #100e14; --paper: #1a1720; --ink: #f1edf5; --muted: #a59eb0; --line: #2d2834; --accent-text: #ffd166; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; padding: 48px 16px 64px; }
+main { max-width: 760px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.brand img { width: 56px; height: 56px; border-radius: 13px; }
+.brand span { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.01em; }
+.brand b { color: var(--accent-text); }
+h1 { font-size: clamp(1.9rem, 4.5vw, 2.6rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
+h2 { font-size: 1.3rem; margin: 36px 0 8px; }
+p, li { max-width: 66ch; }
+.lede { font-size: 1.15rem; color: var(--muted); margin-top: 0; }
+.muted { color: var(--muted); }
+a { color: var(--accent-text); }
+kbd { font: 600 0.82rem/1 ui-monospace, Consolas, monospace; padding: 3px 7px 4px; border: 1px solid var(--line); border-bottom-width: 3px; border-radius: 6px; background: var(--paper); }
+.steps { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 12px; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 14px; align-items: start; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; max-width: none; }
+.steps li::before { content: counter(step); display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--tile); color: var(--gold); font-weight: 800; }
+.steps strong { display: block; font-size: 1.05rem; }
+.steps span { color: var(--muted); }
+.tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+.tip { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.tip strong { display: block; }
+.tip span { color: var(--muted); font-size: 0.95rem; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
