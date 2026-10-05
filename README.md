@@ -156,8 +156,8 @@ YouTube and Chrome are trademarks of Google LLC.
 
 <!-- Replace YOUR-USERNAME and YOUR-REPO below (and in the "Something isn't working" link above) with your GitHub username and repository name.
      Once the extension is on the Chrome Web Store, change [store] to its store link. -->
-[website]: https://YOUR-USERNAME.github.io/YOUR-REPO/
-[tour]: https://YOUR-USERNAME.github.io/YOUR-REPO/#tour
-[guide]: https://YOUR-USERNAME.github.io/YOUR-REPO/guide.html
-[privacy]: https://YOUR-USERNAME.github.io/YOUR-REPO/privacy.html
-[store]: https://YOUR-USERNAME.github.io/YOUR-REPO/
+[website]: https://heunli.github.io/simplychords/
+[tour]: youtube.com/watch?v=nA5hUqyeoXk&feature=youtu.be
+[guide]: https://heunli.github.io/simplychords/guide.html
+[privacy]: https://heunli.github.io/simplychords/privacy.html
+[store]: https://heunli.github.io/simplychords/
