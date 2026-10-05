@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simply Chords Guide</title>
+<link rel="icon" type="image/png" href="assets/icon32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* Layout: a guitar-book walkthrough. Sticky contents rail on wide screens, one reading column, mock-ups set on a "fretboard" panel. */
+  :root {
+    --bg: #f3f4f6;
+    --paper: #ffffff;
+    --ink: #1b1f27;
+    --muted: #5b6372;
+    --line: #dde1e7;
+    --accent: #1f5f8b;          /* string-steel blue */
+    --accent-soft: #e3eef6;
+    --wood: #2a1d17;            /* rosewood panel behind mock-ups */
+    --wood-2: #3a2a21;
+    --glass: rgba(12, 12, 16, 0.86);
+    --capo: #ffd166;            /* the overlay's own yellow */
+    --next: #8ecae6;            /* the overlay's own blue */
+    --warn: #b4531a;
+    --warn-soft: #fbeee4;
+    --kbd-bg: #ffffff;
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --step: 1.0rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121419; --paper: #1a1d24; --ink: #e9ebef; --muted: #a2a9b6; --line: #2c313b;
+      --accent: #7fb6dc; --accent-soft: #1d2a36; --wood: #1d1410; --wood-2: #2b1f19;
+      --warn: #f0a170; --warn-soft: #33241b; --kbd-bg: #232731;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121419; --paper: #1a1d24; --ink: #e9ebef; --muted: #a2a9b6; --line: #2c313b;
+    --accent: #7fb6dc; --accent-soft: #1d2a36; --wood: #1d1410; --wood-2: #2b1f19;
+    --warn: #f0a170; --warn-soft: #33241b; --kbd-bg: #232731;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    padding-inline: 16px;
+    padding-block: 0 64px;
+  }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .shell {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 48px;
+  }
+  @media (max-width: 860px) { .shell { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+
+  /* Contents rail */
+  .rail { position: sticky; top: env(safe-area-inset-top, 0px); align-self: start; padding-top: 40px; }
+  .rail h2 { font: 700 0.75rem/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: toc; }
+  .rail li { counter-increment: toc; }
+  .rail a { display: grid; grid-template-columns: 2.2em 1fr; padding: 5px 8px; border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 0.95rem; }
+  .rail a::before { content: counter(toc, decimal-leading-zero); font: 500 0.8rem/1.9 var(--font-mono); color: var(--muted); }
+  .rail a:hover { background: var(--accent-soft); }
+  @media (max-width: 860px) { .rail { display: none; } }
+
+  main { min-width: 0; max-width: 760px; }
+
+  /* Hero */
+  .hero { padding-block: 48px 28px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font: 700 0.75rem/1 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.3rem, 6vw, 3.6rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance; }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 60ch; margin: 0; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; font: 500 0.85rem/1.4 var(--font-mono); color: var(--muted); }
+  .facts span strong { color: var(--ink); }
+
+  section { padding-block: 44px 8px; scroll-margin-top: 16px; }
+  h2.sec { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3.6vw, 2.1rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; display: flex; gap: 14px; align-items: baseline; }
+  h2.sec .n { font: 500 0.9rem/1 var(--font-mono); color: var(--accent); }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 28px 0 8px; }
+  p { margin: 0 0 14px; max-width: 66ch; }
+  .sub { color: var(--muted); margin-bottom: 20px; }
+
+  /* Ordered steps (a real sequence) */
+  .steps { list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 14px; counter-reset: step; }
+  .steps > li { counter-increment: step; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 12px; align-items: start; }
+  .steps > li::before { content: counter(step); display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--accent); color: var(--paper); font: 700 0.95rem/1 var(--font-mono); }
+  .steps > li > div { min-width: 0; padding-top: 4px; }
+  .steps strong { font-weight: 700; }
+
+  kbd {
+    font: 700 0.8rem/1 var(--font-mono);
+    padding: 3px 7px 4px;
+    border: 1px solid var(--line);
+    border-bottom-width: 3px;
+    border-radius: 6px;
+    background: var(--kbd-bg);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  code { font: 500 0.88em/1 var(--font-mono); background: var(--accent-soft); padding: 2px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+
+  .note { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; max-width: 66ch; }
+  .note.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .note p:last-child { margin: 0; }
+
+  /* Fretboard panel that holds the mock-ups */
+  .board {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 118px, rgba(214, 214, 220, 0.18) 118px 121px),
+      linear-gradient(180deg, var(--wood-2), var(--wood));
+    border-radius: 14px;
+    padding: 28px 20px;
+    margin: 22px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: auto;
+  }
+  .board figcaption, .caption { width: 100%; text-align: center; color: #d9cfc8; font-size: 0.85rem; font-family: var(--font-mono); }
+
+  /* Overlay mock (dark glass, as on the video) */
+  .ov {
+    background: var(--glass);
+    color: #fff;
+    border-radius: 12px;
+    padding: 10px 16px 12px;
+    min-width: 236px;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    position: relative;
+  }
+  .ov-head { display: flex; justify-content: space-between; font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+  .ov-head .capo { color: var(--capo); }
+  .ov-body { display: flex; gap: 16px; justify-content: center; align-items: flex-start; margin-top: 4px; }
+  .ov-now, .ov-next { display: flex; flex-direction: column; align-items: center; }
+  .ov-name { font-size: 2.4rem; font-weight: 700; line-height: 1.05; }
+  .ov-sub { font-size: 0.68rem; color: rgba(255, 255, 255, 0.6); min-height: 1.1em; }
+  .ov-next-label { font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--next); margin-top: 4px; }
+  .ov-next-name { font-size: 1.35rem; font-weight: 600; color: var(--next); line-height: 1.1; }
+  .bar { width: 56px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, 0.15); overflow: hidden; margin-top: 3px; }
+  .bar i { display: block; height: 100%; background: var(--next); }
+  .bar i.soon { background: var(--capo); }
+  .ov-in { font-size: 0.62rem; color: rgba(255, 255, 255, 0.55); margin-top: 2px; }
+  .chips { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
+  .chips span { font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.12); }
+  .ov-hint { margin-top: 6px; font-size: 0.72rem; color: var(--capo); text-align: center; max-width: 250px; }
+  .ov-btns { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+  .ov-btn { font-size: 0.72rem; padding: 4px 10px; border-radius: 6px; background: var(--capo); color: #111; border: 0; font-family: inherit; }
+  .ov-btn.blue { background: var(--next); }
+  .ov-btn.ghost { background: rgba(255, 255, 255, 0.2); color: #fff; }
+  .progress { height: 4px; background: rgba(255, 255, 255, 0.15); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 46%; background: var(--capo); }
+
+  .diagram { display: block; }
+  .diagram line { stroke: rgba(255, 255, 255, 0.55); stroke-width: 1; }
+  .diagram .nut, .diagram .dot { fill: #fff; }
+  .diagram .open { fill: none; stroke: #fff; stroke-width: 1.2; }
+  .diagram text { fill: rgba(255, 255, 255, 0.7); font: 9px sans-serif; text-anchor: middle; }
+  .diagram text.pos { text-anchor: start; font-size: 8px; }
+
+  /* Callout legend next to the annotated overlay */
+  .legend { list-style: none; padding: 0; margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 22px; }
+  .legend li { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); gap: 10px; align-items: start; }
+  .legend b.pin { display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--capo); color: #111; font: 700 0.8rem/1 var(--font-mono); }
+  .legend strong { display: block; }
+  .legend span { color: var(--muted); font-size: 0.95rem; }
+  .ov .pin { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--capo); color: #111; font: 700 0.68rem/20px var(--font-mono); text-align: center; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.6); }
+
+  /* Diagram key */
+  .keyrow { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: center; }
+  .keyrow figure { margin: 0; display: grid; justify-items: center; gap: 6px; color: #e8e0da; font-size: 0.85rem; }
+  .keyrow figure b { font-family: var(--font-display); font-size: 1.3rem; color: #fff; }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 700 0.72rem/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: 0; }
+  td.mono { font-family: var(--font-mono); font-size: 0.88rem; white-space: nowrap; }
+
+  /* Capo example */
+  .capo-demo { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 14px; align-items: center; margin: 18px 0; }
+  .capo-demo .col { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px; min-width: 0; }
+  .capo-demo h4 { margin: 0 0 8px; font: 700 0.72rem/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .capo-demo .chords { display: flex; flex-wrap: wrap; gap: 6px; }
+  .capo-demo .chords span { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; padding: 4px 10px; border-radius: 6px; background: var(--bg); }
+  .capo-demo .hard span { box-shadow: inset 0 -3px 0 var(--warn); }
+  .capo-demo .easy span { box-shadow: inset 0 -3px 0 var(--accent); }
+  .capo-demo .arrow { font: 700 0.85rem/1.3 var(--font-mono); color: var(--accent); text-align: center; }
+  @media (max-width: 560px) { .capo-demo { grid-template-columns: minmax(0, 1fr); } .capo-demo .arrow { transform: none; } }
+
+  /* Popup mock */
+  .popup { width: 290px; max-width: 100%; background: #202124; color: #e8eaed; border-radius: 10px; font: 13px/1.4 "Segoe UI", system-ui, sans-serif; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); }
+  .popup header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #3c4043; font-weight: 600; }
+  .popup .sec { padding: 9px 14px; border-bottom: 1px solid #3c4043; }
+  .popup .sec:last-child { border-bottom: 0; }
+  .popup h5 { margin: 0 0 6px; font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: #9aa0a6; }
+  .popup .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 4px 0; }
+  .popup .btn { width: 100%; padding: 7px; border-radius: 6px; text-align: center; background: #ff4e45; color: #fff; font-weight: 600; }
+  .popup .btn.plain { background: transparent; border: 1px solid #3c4043; color: #e8eaed; font-weight: 400; }
+  .popup .status { margin-top: 6px; padding: 5px 8px; border-radius: 6px; background: #2d2e31; font-size: 12px; }
+  .popup .tick { width: 13px; height: 13px; border-radius: 3px; background: #ff4e45; display: inline-block; }
+  .popup .slider { width: 110px; height: 4px; border-radius: 2px; background: #5f6368; position: relative; }
+  .popup .slider::after { content: ""; position: absolute; left: 0; top: -4px; width: 12px; height: 12px; border-radius: 50%; background: #ff4e45; }
+  .popup .sel { border: 1px solid #3c4043; border-radius: 4px; padding: 1px 6px; font-size: 12px; }
+
+  /* Game mock */
+  .game { width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border-radius: 10px; display: block; background: #06080f; }
+
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 16px; min-width: 0; }
+  .card h4 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1.05rem; }
+  .card p { font-size: 0.97rem; margin: 0; color: var(--muted); }
+
+  .faq dt { font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; margin-top: 20px; }
+  .faq dd { margin: 6px 0 0; max-width: 66ch; }
+
+  footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .bar i.anim { animation: fill 4s linear infinite; }
+    @keyframes fill { from { width: 0; } to { width: 100%; } }
+  }
+</style>
+
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#install">Install</a></li>
+      <li><a href="#first-run">First run</a></li>
+      <li><a href="#overlay">Reading the overlay</a></li>
+      <li><a href="#learn">Analyze a song</a></li>
+      <li><a href="#capo">Capo and easy chords</a></li>
+      <li><a href="#game">Letter Fleet</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#trouble">Fixes</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <p class="eyebrow"><a href="./" style="color:inherit">Simply Chords</a> · guide</p>
+      <h1>Play along with any song on YouTube</h1>
+      <p class="lede">The extension listens to the video you're watching, works out the chords, and shows easy acoustic-guitar shapes on top of the video. Analyze a song once and every chord appears before you need to play it.</p>
+      <div class="facts">
+        <span><strong>Chrome</strong> extension (also works in Edge)</span>
+        <span><strong>Standard tuning</strong>, 6-string guitar</span>
+        <span>Runs entirely in your browser</span>
+      </div>
+    </header>
+
+    <section id="install">
+      <h2 class="sec"><span class="n">01</span>Install</h2>
+      <p class="sub">Simply Chords is free on the Chrome Web Store.</p>
+      <ol class="steps">
+        <li><div>Open <a data-store-link href="#">Simply Chords on the Chrome Web Store</a> and click <strong>Add to Chrome</strong>.</div></li>
+        <li><div>Confirm <strong>Add extension</strong>. A welcome page opens with the first steps.</div></li>
+        <li><div>Pin the extension: click the puzzle-piece icon in the toolbar, then the pin next to <strong>Simply Chords</strong>. Its menu is where the settings live.</div></li>
+      </ol>
+      <div class="note">
+        <p><strong>Updates install automatically.</strong> If a YouTube tab that was already open stops showing chords after an update, refresh that tab. The menu shows a <strong>Refresh this tab</strong> button when it's needed.</p>
+      </div>
+    </section>
+
+    <section id="first-run">
+      <h2 class="sec"><span class="n">02</span>First run</h2>
+      <ol class="steps">
+        <li><div>Open a video on YouTube (a page with <code>watch?v=</code> or <code>/shorts/</code> in the address).</div></li>
+        <li><div><strong>Click once anywhere on the page.</strong> Browsers only let a page process audio after you've interacted with it. Until then the overlay says <em>Click the page to start chord detection</em>.</div></li>
+        <li><div>Press play. Chords start appearing in the box at the top right of the video, with a finger diagram for each.</div></li>
+      </ol>
+      <p>Straight away the chords come from real-time listening, so each one shows up about half a second after you hear it. To get every chord <em>ahead</em> of time, analyze the song (step&nbsp;04).</p>
+    </section>
+
+    <section id="overlay">
+      <h2 class="sec"><span class="n">03</span>Reading the overlay</h2>
+      <p class="sub">Everything you need while playing sits in one box on the video. It stays put in fullscreen and theater mode, and hides during ads.</p>
+
+      <figure class="board" aria-label="The overlay on a video, with numbered parts">
+        <div class="ov" style="padding-top:14px">
+          <span class="pin" style="left:-8px;top:-8px">1</span>
+          <span class="pin" style="right:-8px;top:-8px">2</span>
+          <div class="ov-head"><span>Key Gm</span><span class="capo">Capo 3 (auto)</span></div>
+          <div class="ov-body">
+            <div class="ov-now" style="position:relative">
+              <span class="pin" style="left:-22px;top:4px">3</span>
+              <div class="ov-name">Em</div>
+              <svg class="diagram" data-frets="0,2,2,0,0,0" width="78" height="95" aria-label="Em chord diagram"></svg>
+              <div class="ov-sub">sounds Gm</div>
+              <span class="pin" style="left:-22px;bottom:-2px">4</span>
+            </div>
+            <div class="ov-next" style="position:relative">
+              <span class="pin" style="right:-14px;top:4px">5</span>
+              <div class="ov-next-label">next</div>
+              <div class="ov-next-name">C</div>
+              <svg class="diagram" data-frets="x,3,2,0,1,0" width="48" height="58" aria-label="C chord diagram"></svg>
+              <div class="bar"><i class="anim" style="width:70%"></i></div>
+              <div class="ov-in">in 1.2s</div>
+              <span class="pin" style="right:-14px;bottom:10px">6</span>
+            </div>
+          </div>
+          <div class="chips" style="position:relative"><span>C</span><span>G</span><span>D</span><span>Em</span><span>C</span><span class="pin" style="right:-22px;top:-2px;position:absolute">7</span></div>
+        </div>
+        <figcaption>Example: a song in G minor, played with capo on fret 3</figcaption>
+      </figure>
+
+      <ul class="legend">
+        <li><b class="pin">1</b><div><strong>Key</strong><span>The song's key, worked out from what it hears.</span></div></li>
+        <li><b class="pin">2</b><div><strong>Capo</strong><span>Which fret to put your capo on. "(auto)" means the extension chose it.</span></div></li>
+        <li><b class="pin">3</b><div><strong>Chord to play now</strong><span>The shape name and its diagram, already adjusted for the capo.</span></div></li>
+        <li><b class="pin">4</b><div><strong>What it really is</strong><span>"sounds Gm" names the actual chord. "easy F" appears when an easier shape stands in.</span></div></li>
+        <li><b class="pin">5</b><div><strong>Next chord</strong><span>The chord coming up, with a small diagram so you can get your fingers ready.</span></div></li>
+        <li><b class="pin">6</b><div><strong>Countdown</strong><span>Fills up as the change gets closer and turns yellow in the last second. "(predicted)" means it was guessed from the song's pattern.</span></div></li>
+        <li><b class="pin">7</b><div><strong>Coming up</strong><span>The next few chords in order, nearest first.</span></div></li>
+      </ul>
+
+      <h3>How to read a chord diagram</h3>
+      <p>Diagrams are drawn as if the guitar stands upright facing you: the thick line at the top is the nut (or your capo), the low E string is on the left, and the high e string is on the right.</p>
+      <div class="board">
+        <div class="keyrow">
+          <figure><b>C</b><svg class="diagram" data-frets="x,3,2,0,1,0" width="78" height="95" aria-label="C chord diagram"></svg><span>× don't play · ○ open</span></figure>
+          <figure><b>F</b><svg class="diagram" data-frets="1,3,3,2,1,1" data-barre="1" width="78" height="95" aria-label="F barre chord diagram"></svg><span>bar = barre one finger</span></figure>
+          <figure><b>C#m</b><svg class="diagram" data-frets="x,4,6,6,5,4" data-barre="4" width="78" height="95" aria-label="C sharp minor chord diagram"></svg><span>"4fr" = starts at fret 4</span></figure>
+        </div>
+      </div>
+      <p>With a capo on, frets are counted from the capo, so a diagram showing the 2nd fret means two frets above the capo.</p>
+    </section>
+
+    <section id="learn">
+      <h2 class="sec"><span class="n">04</span>Analyze a song</h2>
+      <p class="sub">Analysis works through the whole song in one go. Afterwards every chord appears before it happens, and the result is more accurate than listening live.</p>
+      <ol class="steps">
+        <li><div>Click <strong>Analyze this song</strong>, either the yellow button on the overlay or the big button in the extension's popup.</div></li>
+        <li><div>Simply Chords <strong>runs through the song once</strong> to map every chord. The video stays quiet while it works, and a progress bar shows how far it has got. A typical song takes a couple of minutes. Press <kbd>Esc</kbd> or <strong>Cancel</strong> to stop.</div></li>
+        <li><div>Just before the end it stops on its own, so YouTube doesn't skip to the next video, and rewinds to 0:00. The overlay says <em>Chords ready! Press play</em>.</div></li>
+        <li><div>Press play and play along. The <strong>next</strong> chord and its countdown are always visible ahead of time.</div></li>
+      </ol>
+
+      <figure class="board" aria-label="The overlay while a song is being analyzed">
+        <div class="ov">
+          <div class="ov-head"><span>Key Gm</span><span class="capo">Capo 3</span></div>
+          <div class="progress"><i></i></div>
+          <div class="ov-hint">Analyzing chords… the video stays quiet until it's done · Press G for a game while you wait · Esc to cancel</div>
+          <div class="ov-btns"><span class="ov-btn blue">Play a game (G)</span><span class="ov-btn ghost">Cancel</span></div>
+        </div>
+        <figcaption>During analysis: progress, the game prompt, and Cancel</figcaption>
+      </figure>
+
+      <div class="two">
+        <div class="card"><h4>Analyzed songs are remembered</h4><p>Each video is saved after analysis, up to 200 songs. Come back later and the chords are ready at once, with no Analyze button shown.</p></div>
+        <div class="card"><h4>No time to analyze it?</h4><p>Just play the song. Once the progression repeats, the next chord is predicted with a countdown. What you've heard is saved too, so on a replay those parts show chords ahead of time.</p></div>
+      </div>
+      <div class="note"><p>Ads play normally (with sound, at normal speed) if one appears during analysis; analysis continues afterwards. Live streams can't be analyzed because they have no end.</p></div>
+    </section>
+
+    <section id="capo">
+      <h2 class="sec"><span class="n">05</span>Capo and easy chords</h2>
+      <p class="sub">Every chord is shown as a shape that's comfortable on an acoustic guitar.</p>
+
+      <h3>Automatic capo</h3>
+      <p>With <strong>Choose capo automatically</strong> on, the extension looks at every chord in the song and picks the one capo fret that gives the easiest shapes overall. It's chosen once per song, so it never changes while you play.</p>
+      <div class="capo-demo">
+        <div class="col hard"><h4>Song as recorded</h4><div class="chords"><span>B♭</span><span>F</span><span>Gm</span><span>E♭</span></div></div>
+        <div class="arrow">capo 3 →</div>
+        <div class="col easy"><h4>What you play</h4><div class="chords"><span>G</span><span>D</span><span>Em</span><span>C</span></div></div>
+      </div>
+      <p>Prefer your own fret? Turn automatic off and pick a fret from 0 to 9 with the slider. The diagrams update immediately.</p>
+
+      <h3>Simplified chords</h3>
+      <p>Chords are reduced to plain major and minor, the way most chord sheets write them:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Heard</th><th>Shown as</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>G7, Cmaj7, Asus4</td><td>G, C, A</td><td>The extra note is optional; the triad sounds right.</td></tr>
+            <tr><td>Am7, Bdim</td><td>Am, Bm</td><td>Same idea for minor chords.</td></tr>
+            <tr><td>Power chords (E5, A5)</td><td>Em or E, Am or A</td><td>Rock and electric songs often skip the third, so the extension uses the version that fits the song's key.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Easy substitutes</h3>
+      <p>Barre chords are the hardest part for many players. With <strong>Easy substitutes</strong> on (the default), four of them are swapped for open shapes with the same root and the same major/minor feel:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Instead of</th><th>Play</th><th>Frets (low E → high e)</th></tr></thead>
+          <tbody>
+            <tr><td>F</td><td>Fmaj7</td><td class="mono">x x 3 2 1 0</td></tr>
+            <tr><td>Bm</td><td>Bm7</td><td class="mono">x 2 0 2 0 2</td></tr>
+            <tr><td>B</td><td>B7</td><td class="mono">x 2 1 2 0 2</td></tr>
+            <tr><td>F#m</td><td>F#m7</td><td class="mono">2 x 2 2 2 0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>When a substitute is used, the overlay notes it under the chord, for example "easy F".</p>
+    </section>
+
+    <section id="game">
+      <h2 class="sec"><span class="n">06</span>Letter Fleet</h2>
+      <p class="sub">An optional mini-game for the minute or two while a song is being analyzed.</p>
+      <figure class="board" aria-label="Letter Fleet game">
+        <canvas class="game" id="game-art" width="640" height="360" aria-label="Letter ships in formation above the player's ship"></canvas>
+        <figcaption>Letters from the page become the enemy fleet</figcaption>
+      </figure>
+      <ol class="steps">
+        <li><div>During analysis, press <kbd>G</kbd> or click <strong>Play a game (G)</strong> on the overlay.</div></li>
+        <li><div>The page dims and the letters on screen lift off and fly into formation as winged ships. Your ship is your YouTube profile picture, or a pixel ship if you're signed out.</div></li>
+        <li><div>When analysis finishes you get a <strong>CHORDS READY!</strong> banner with your score, and the game closes itself.</div></li>
+      </ol>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Key</th><th>Does</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd></td><td>Move</td></tr>
+            <tr><td><kbd>Space</kbd>, <kbd>↑</kbd> or <kbd>W</kbd></td><td>Fire</td></tr>
+            <tr><td><kbd>M</kbd></td><td>Sound effects on or off (remembered)</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Close the game. Analysis keeps going; press <kbd>Esc</kbd> again to cancel the analysis.</td></tr>
+            <tr><td><kbd>G</kbd></td><td>Play again after a game over</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The game captures the keyboard while it's open, so YouTube's own shortcuts (space to pause, arrows to skip) can't interrupt the analysis underneath. Your high score is saved.</p>
+    </section>
+
+    <section id="settings">
+      <h2 class="sec"><span class="n">07</span>Settings</h2>
+      <p class="sub">Click the extension's icon in the toolbar. Changes apply instantly.</p>
+      <div class="board">
+        <div class="popup" aria-label="Extension popup">
+          <header><span>Simply Chords</span><span class="tick" title="On"></span></header>
+          <div class="sec"><h5>This song</h5><div class="btn">Analyze this song</div><div class="status">Not analyzed yet: chords are detected live.</div></div>
+          <div class="sec"><h5>Capo</h5><div class="row"><span>Choose capo automatically</span><span class="tick"></span></div><div class="row"><span>Fret</span><span class="slider"></span><span>auto</span></div></div>
+          <div class="sec"><h5>Chords</h5><div class="row"><span>Easy substitutes</span><span class="tick"></span></div><div class="row"><span>Analysis speed</span><span class="sel">Standard (most accurate)</span></div></div>
+          <div class="sec"><h5>Display</h5><div class="row"><span>Position</span><span class="sel">Top right</span></div><div class="row"><span>Size</span><span class="slider"></span></div></div>
+          <div class="sec"><div class="btn plain">Clear analyzed songs</div></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>On/off (top right)</td><td>Turns the overlay and listening on or off.</td></tr>
+            <tr><td>Analyze this song</td><td>Starts analyzing the current video. The status line below says whether the song is analyzed, how much has been heard, or what to do next. Changes to <strong>Analyze again</strong> for analyzed songs.</td></tr>
+            <tr><td>Choose capo automatically</td><td>Picks the easiest capo fret for the whole song.</td></tr>
+            <tr><td>Fret</td><td>Your own capo fret, 0 to 9, when automatic is off.</td></tr>
+            <tr><td>Easy substitutes</td><td>Swaps F, Bm, B and F#m for easier open shapes.</td></tr>
+            <tr><td>Analysis speed</td><td>Standard is the most accurate. Quick finishes sooner but is less tested.</td></tr>
+            <tr><td>Position and size</td><td>Where the overlay sits on the video, and how big it is (0.6× to 2×).</td></tr>
+            <tr><td>Clear analyzed songs</td><td>Deletes every saved song so they can be analyzed fresh.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="trouble">
+      <h2 class="sec"><span class="n">08</span>Fixes</h2>
+      <dl class="faq">
+        <dt>The Analyze button is grey, or the popup says to refresh the tab</dt>
+        <dd>That tab is running an older copy of the extension, usually because the extension was reloaded after the tab opened. Click <strong>Refresh this tab</strong> in the popup, or refresh the page yourself, then click the page once.</dd>
+
+        <dt>The overlay says "Reload the page to enable chord detection"</dt>
+        <dd>Same cause: refresh the YouTube tab.</dd>
+
+        <dt>"No audio signal available for this video"</dt>
+        <dd>Some videos are copy-protected, and the browser won't let extensions hear them. Chords can't be detected for those videos.</dd>
+
+        <dt>A chord looks wrong</dt>
+        <dd>Click <strong>Analyze again</strong>: an analyzed song is more accurate than live listening. Busy mixes with loud vocals or heavy effects are the hardest. If a shape feels odd, try turning off easy substitutes or setting the capo yourself.</dd>
+
+        <dt>"Extension context invalidated" on the extensions page</dt>
+        <dd>A harmless leftover from reloading the extension while a YouTube tab was open. Refresh the tab and click <strong>Clear all</strong> on the errors page.</dd>
+
+        <dt>The Analyze button doesn't appear</dt>
+        <dd>It's hidden once a song is analyzed. Use <strong>Analyze again</strong> in the popup to redo it.</dd>
+      </dl>
+      <div class="note warn"><p><strong>Good to know:</strong> chord accuracy was measured at about 99% on simulated guitar recordings. Real songs with vocals and full bands will score lower, and inversions and slash chords (like G/B) aren't shown.</p></div>
+    </section>
+
+    <footer>Simply Chords · version 1.0 · Everything runs in your browser; no audio leaves your computer. Works on YouTube. Not affiliated with YouTube or Google.</footer>
+  </main>
+</div>
+
+<script>
+  // Chord diagrams from fret lists (low E -> high e; "x" = muted).
+  (function () {
+    const NS = 'http://www.w3.org/2000/svg';
+    function el(tag, attrs, parent) {
+      const e = document.createElementNS(NS, tag);
+      for (const k in attrs) e.setAttribute(k, attrs[k]);
+      parent.appendChild(e);
+      return e;
+    }
+    document.querySelectorAll('svg.diagram').forEach((s) => {
+      const frets = s.dataset.frets.split(',').map((f) => (f === 'x' ? null : Number(f)));
+      const barre = s.dataset.barre ? Number(s.dataset.barre) : null;
+      s.setAttribute('viewBox', '0 0 64 78');
+      const left = 10, top = 16, gx = 9, gy = 13, FR = 4;
+      const played = frets.filter((f) => f != null && f > 0);
+      const max = played.length ? Math.max(...played) : 0, min = played.length ? Math.min(...played) : 0;
+      const base = max > FR ? min : 1;
+      if (base === 1) el('rect', { x: left - 0.5, y: top - 2.5, width: gx * 5 + 1, height: 3, class: 'nut' }, s);
+      else el('text', { x: left + gx * 5 + 3, y: top + gy * 0.7, class: 'pos' }, s).textContent = base + 'fr';
+      for (let f = 0; f <= FR; f++) el('line', { x1: left, x2: left + gx * 5, y1: top + f * gy, y2: top + f * gy }, s);
+      for (let i = 0; i < 6; i++) el('line', { x1: left + i * gx, x2: left + i * gx, y1: top, y2: top + FR * gy }, s);
+      if (barre) {
+        const strs = frets.map((f, i) => (f === barre ? i : -1)).filter((i) => i >= 0);
+        const y = top + (barre - base + 0.5) * gy;
+        el('rect', { x: left + strs[0] * gx - 3.5, y: y - 3.5, width: (strs[strs.length - 1] - strs[0]) * gx + 7, height: 7, rx: 3.5, class: 'dot' }, s);
+      }
+      frets.forEach((f, i) => {
+        const x = left + i * gx;
+        if (f == null) el('text', { x, y: top - 5 }, s).textContent = '×';
+        else if (f === 0) el('circle', { cx: x, cy: top - 7, r: 2.6, class: 'open' }, s);
+        else if (f !== barre) el('circle', { cx: x, cy: top + (f - base + 0.5) * gy, r: 3.6, class: 'dot' }, s);
+      });
+    });
+  })();
+
+  // A still frame of Letter Fleet.
+  (function () {
+    const c = document.getElementById('game-art');
+    if (!c) return;
+    const g = c.getContext('2d');
+    const W = c.width, H = c.height;
+    g.fillStyle = '#06080f'; g.fillRect(0, 0, W, H);
+    for (let i = 0; i < 80; i++) { g.fillStyle = 'rgba(255,255,255,' + (0.25 + (i % 4) * 0.12) + ')'; g.fillRect((i * 977) % W, (i * 613) % H, i % 6 ? 1 : 2, i % 6 ? 1 : 2); }
+    const px = (rows, x, y, s, col) => { g.fillStyle = col; rows.forEach((r, ry) => [...r].forEach((ch, rx) => { if (ch === 'X') g.fillRect(x + rx * s, y + ry * s, s, s); })); };
+    const wing = ['X..', 'XX.', '.XX'], wingR = wing.map((r) => [...r].reverse().join(''));
+    const rows = ['STRUMMING', 'OPENCHORDS', 'CAPOTRICKS', 'FINGERPICK'];
+    const cols = ['#8ecae6', '#ffd166', '#ef476f', '#06d6a0'];
+    rows.forEach((word, r) => {
+      [...word].forEach((ch, i) => {
+        if ((r * 7 + i) % 9 === 4) return; // a few already shot down
+        const x = 120 + i * 44 + (r % 2) * 10, y = 52 + r * 38, col = cols[r];
+        g.font = '700 20px monospace'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = col; g.fillText(ch, x, y);
+        px(wingR, x - 19, y - 5, 3, col); px(wing, x + 10, y - 5, 3, col);
+        g.fillStyle = '#ffb703'; g.fillRect(x - 2, y + 11, 4, 3);
+      });
+    });
+    // particles from a hit
+    for (let i = 0; i < 14; i++) { g.fillStyle = '#ef476f'; g.fillRect(330 + Math.cos(i) * (10 + i * 2), 150 + Math.sin(i * 1.7) * (8 + i), 3, 3); }
+    // shots
+    g.fillStyle = '#fff'; g.fillRect(318, 230, 3, 12);
+    g.fillStyle = '#ef476f'; g.fillRect(212, 205, 3, 5); g.fillRect(216, 210, 3, 5);
+    // player: pixel ship
+    px(['.....X.....', '....XXX....', '....XXX....', '.X.XXXXX.X.', 'XXXXXXXXXXX', 'XX.XXXXX.XX', 'X...X.X...X'], 303, 290, 3, '#8ecae6');
+    g.fillStyle = '#ff7b00'; g.fillRect(316, 312, 6, 5);
+    // HUD
+    g.font = '700 14px monospace'; g.textAlign = 'left'; g.textBaseline = 'top';
+    g.fillStyle = '#fff'; g.fillText('SCORE 00340', 14, 12);
+    g.fillStyle = '#ffd166'; g.fillText('HI 01250', 150, 12);
+    g.fillStyle = '#8ecae6'; g.fillText('WAVE 1', 260, 12);
+    g.textAlign = 'right'; g.fillStyle = '#ef476f'; g.fillText('♥♥♥', W - 14, 12);
+    g.fillStyle = 'rgba(255,255,255,.15)'; g.fillRect(170, H - 18, 300, 5);
+    g.fillStyle = '#ffd166'; g.fillRect(170, H - 18, 160, 5);
+    g.textAlign = 'center'; g.textBaseline = 'bottom'; g.font = '11px monospace'; g.fillStyle = 'rgba(255,255,255,.75)';
+    g.fillText('Analyzing chords… 53%   ←/→ move · Space fire · M sound · Esc quit', W / 2, H - 22);
+  })();
+</script>
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

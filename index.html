@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simply Chords: easy guitar chords on the video you're watching</title>
+  <meta name="description" content="A free Chrome extension that shows easy guitar chords, with finger diagrams, on top of the YouTube video you're watching. Auto capo, easy shapes, and every chord shown as you need it.">
+  <meta property="og:title" content="Simply Chords">
+  <meta property="og:description" content="Easy guitar chords, right on the video. A free Chrome extension for playing along.">
+  <meta property="og:image" content="assets/marquee-1400x560.png">
+  <link rel="icon" type="image/png" href="assets/icon32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@700&display=swap">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="./"><img src="assets/icon-mark.svg" alt="">Simply <b>Chords</b></a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="guide.html">Guide</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-gold btn-sm" data-store-link data-soon="Coming soon" href="#"><span data-label>Add to Chrome</span></a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow">Free Chrome extension · Works on YouTube</p>
+          <h1>Play along with <em>any song.</em></h1>
+          <p class="lede">Simply Chords shows easy guitar chords on top of the video you're watching, with finger diagrams and a countdown to every change.</p>
+          <div class="cta">
+            <a class="btn btn-gold" data-store-link href="#">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 4h2v9.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6z"/><path fill="currentColor" d="M5 18h14v2H5z"/></svg>
+              <span data-label>Add to Chrome, it's free</span>
+            </a>
+            <a class="btn btn-ghost" href="#tour">Watch the 48-second tour</a>
+          </div>
+          <p class="fine">No account. No ads. Nothing leaves your computer.</p>
+        </div>
+        <img class="hero-shot" src="assets/screenshot-1-chords.png" width="1280" height="800" alt="The Simply Chords chord box on a video: the chord Em with its finger diagram, the next chord C with a countdown, capo 3 chosen automatically, and the upcoming chords.">
+      </div>
+    </div>
+
+    <section id="tour" aria-labelledby="tour-h">
+      <div class="wrap">
+        <h2 id="tour-h">See it in <em>48 seconds</em></h2>
+        <p class="intro">Chords that change in time with the music, analyzed songs, easier shapes with a capo, and a little game for the wait.</p>
+        <div class="video">
+          <video controls preload="metadata" poster="assets/promo-poster.jpg" playsinline>
+            <source src="assets/simply-chords-promo.mp4" type="video/mp4">
+            Your browser can't play this video. <a href="assets/simply-chords-promo.mp4">Download it</a> instead.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" aria-labelledby="how-h">
+      <div class="wrap">
+        <h2 id="how-h">Three steps to your <em>first chord</em></h2>
+        <p class="intro">Nothing to set up and nothing to sign in to.</p>
+        <ol class="steps">
+          <li><h3>Open a song</h3><p>Any video on YouTube, including Shorts and YouTube Music.</p></li>
+          <li><h3>Click once and press play</h3><p>Browsers only let a page hear sound after you've clicked it, so give the page one click.</p></li>
+          <li><h3>Play along</h3><p>The chord to play now, its finger diagram, and the next chord with a countdown appear on the video.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="features" aria-labelledby="features-h">
+      <div class="wrap">
+        <h2 id="features-h">Made for playing, <em>not reading</em></h2>
+        <p class="intro">Everything is built around keeping your hands on the guitar.</p>
+
+        <div class="feature">
+          <div class="text">
+            <span class="tag">Analyze this song</span>
+            <h3>Every chord shows up before it happens</h3>
+            <p>Click <strong>Analyze this song</strong> and Simply Chords maps the whole song ahead of time. From then on each chord appears before the change, so you're never late.</p>
+            <p>Analyzed songs are remembered. Haven't analyzed one? Once the progression repeats, the next chord is predicted for you.</p>
+          </div>
+          <img class="shot" src="assets/screenshot-2-analyze.png" width="1280" height="800" loading="lazy" alt="The chord box while a song is being analyzed, with a progress bar and a button to play a game while you wait.">
+        </div>
+
+        <div class="feature flip">
+          <div class="text">
+            <span class="tag">Your guitar, your way</span>
+            <h3>Capo picked for you, easier shapes</h3>
+            <p>Auto capo chooses one fret for the whole song that gives the easiest open chords. Tricky barre chords like F and Bm are swapped for shapes you can actually play.</p>
+            <p>Move the chord box, resize it, or set your own capo from the menu.</p>
+          </div>
+          <img class="shot" src="assets/screenshot-3-menu.png" width="1280" height="800" loading="lazy" alt="The Simply Chords menu with capo, easy shapes, analysis and display settings.">
+        </div>
+
+        <div class="feature">
+          <div class="text">
+            <span class="tag">While you wait</span>
+            <h3>Letter Fleet</h3>
+            <p>Press <strong>G</strong> while a song is being analyzed and the letters on the page lift off and become a fleet of ships. Your ship is your profile picture.</p>
+            <p>Entirely optional, and it closes itself when your chords are ready.</p>
+          </div>
+          <img class="shot" src="assets/screenshot-4-game.png" width="1280" height="800" loading="lazy" alt="The Letter Fleet game: letters from the page arranged as a fleet of small winged ships above the player's ship.">
+        </div>
+
+        <div class="grid">
+          <div class="card"><div class="dot"></div><h3>Simple chords</h3><p>Major and minor chords only. 7ths and power chords become the easy chord that fits the song's key.</p></div>
+          <div class="card"><div class="dot"></div><h3>Any tuning</h3><p>Works when the recording or the guitar isn't tuned exactly to concert pitch.</p></div>
+          <div class="card"><div class="dot"></div><h3>Acoustic or electric</h3><p>Tuned for acoustic guitar, and handles distorted electric songs too.</p></div>
+          <div class="card"><div class="dot"></div><h3>Private by design</h3><p>All listening happens in your browser. No audio, account or personal data leaves your computer.</p></div>
+          <div class="card"><div class="dot"></div><h3>Free</h3><p>No sign-up, no ads, no tracking.</p></div>
+          <div class="card"><div class="dot"></div><h3>Stays out of the way</h3><p>A small box on the video that hides during ads and follows you into fullscreen.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <h2 id="faq-h">Questions</h2>
+        <div class="faq">
+          <details><summary>Is it free?</summary><p>Yes. No account, no ads and no paid version.</p></details>
+          <details><summary>Does it record or upload my audio?</summary><p>No. The sound of the video is analyzed in your browser as it plays and is never recorded, saved or sent anywhere. See the <a href="privacy.html">privacy policy</a>.</p></details>
+          <details><summary>Which sites does it work on?</summary><p>YouTube and YouTube Music, in Chrome and other Chromium browsers such as Edge.</p></details>
+          <details><summary>How accurate is it?</summary><p>Very good on clear guitar songs, and an analyzed song is more accurate than live listening. Busy mixes with loud vocals or heavy effects are the hardest. Inversions and slash chords (like G/B) aren't shown.</p></details>
+          <details><summary>What guitar does it expect?</summary><p>A 6-string guitar in standard tuning. Shapes are chosen to be comfortable on an acoustic, with a capo where it helps.</p></details>
+          <details><summary>Is Simply Chords made by YouTube?</summary><p>No. Simply Chords is an independent extension that works on YouTube. It isn't affiliated with or endorsed by YouTube or Google.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-h">
+      <div class="wrap">
+        <img src="assets/icon-mark.svg" alt="">
+        <h2 id="closing-h">Pick up your guitar.</h2>
+        <p class="intro" style="margin-inline:auto">Simply Chords is free and takes a few seconds to add.</p>
+        <div class="cta"><a class="btn btn-gold" data-store-link href="#"><span data-label>Add to Chrome, it's free</span></a><a class="btn btn-ghost" href="guide.html">Read the guide</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> Simply Chords · Works on YouTube. Not affiliated with YouTube or Google.</span>
+      <nav aria-label="Footer">
+        <a href="guide.html">Guide</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:eudaemonic.dev@gmail.com">eudaemonic.dev@gmail.com</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>
